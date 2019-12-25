@@ -1,10 +1,250 @@
-Ñ§Éú: Ñ§ºÅ,µÇÂ¼ÃÜÂë,ĞÕÃû,ĞÔ±ğ,³öÉúÈÕÆÚ,ÓÃ»§ÕÕÆ¬,ÁªÏµµç»°,ÓÊÏä,¼ÒÍ¥µØÖ·,ÉóºË×´Ì¬,×¢²áÊ±¼ä
-ÎÄÕÂ: ÎÄÕÂid,ÎÄÕÂ±êÌâ,ÎÄÕÂÍ¼Æ¬,ÎÄÕÂÄÚÈİ,ä¯ÀÀÁ¿,·¢²¼ÈË,·¢²¼Ê±¼ä
-ÎÄÕÂ»Ø¸´: »Ø¸´id,±»»ØÎÄÕÂ,»Ø¸´ÄÚÈİ,»Ø¸´ÈË,»Ø¸´Ê±¼ä
-ÎÄÕÂµãÔŞ: µãÔŞid,±»µãÔŞÎÄÕÂ,µãÔŞÈË,µãÔŞÊ±¼ä
-ËµËµ: ËµËµid,ËµËµÄÚÈİ,Í¼Æ¬1,Í¼Æ¬2,Í¼Æ¬3,·¢²¼ÈË,·¢²¼Ê±¼ä
-ËµËµÆÀÂÛ: ÆÀÂÛid,±»ÆÀËµËµ,ÆÀÂÛÄÚÈİ,ÆÀÂÛÈË,ÆÀÂÛÊ±¼ä
-ËµËµµãÔŞ: µãÔŞid,±»µãÔŞËµËµ,µãÔŞÓÃ»§,µãÔŞÊ±¼ä
-ÓÃ»§¹Ø×¢: ¹Ø×¢id,±»¹Ø×¢ÈË,¹Ø×¢ÈË,¹Ø×¢Ê±¼ä
-ÁôÑÔ: ÁôÑÔid,ÁôÑÔ±êÌâ,ÁôÑÔÄÚÈİ,ÁôÑÔÈË,ÁôÑÔÊ±¼ä,¹ÜÀí»Ø¸´,»Ø¸´Ê±¼ä
-ĞÂÎÅ¹«¸æ: ¹«¸æid,±êÌâ,¹«¸æÄÚÈİ,·¢²¼Ê±¼ä
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost_3306
+Source Server Version : 50051
+Source Host           : localhost:3306
+Source Database       : xiaoyoulu_db
+
+Target Server Type    : MYSQL
+Target Server Version : 50051
+File Encoding         : 65001
+
+Date: 2018-07-13 17:44:07
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `admin`
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+  `username` varchar(20) NOT NULL default '',
+  `password` varchar(32) default NULL,
+  PRIMARY KEY  (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of admin
+-- ----------------------------
+INSERT INTO `admin` VALUES ('a', 'a');
+
+-- ----------------------------
+-- Table structure for `t_comment`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_comment`;
+CREATE TABLE `t_comment` (
+  `commentId` int(11) NOT NULL auto_increment COMMENT 'è¯„è®ºid',
+  `shuoshuoObj` int(11) NOT NULL COMMENT 'è¢«è¯„è¯´è¯´',
+  `commentContent` varchar(800) NOT NULL COMMENT 'è¯„è®ºå†…å®¹',
+  `userObj` varchar(30) NOT NULL COMMENT 'è¯„è®ºäºº',
+  `commentTime` varchar(20) default NULL COMMENT 'è¯„è®ºæ—¶é—´',
+  PRIMARY KEY  (`commentId`),
+  KEY `shuoshuoObj` (`shuoshuoObj`),
+  KEY `userObj` (`userObj`),
+  CONSTRAINT `t_comment_ibfk_1` FOREIGN KEY (`shuoshuoObj`) REFERENCES `t_shuoshuo` (`shuoshuoId`),
+  CONSTRAINT `t_comment_ibfk_2` FOREIGN KEY (`userObj`) REFERENCES `t_userinfo` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_comment
+-- ----------------------------
+INSERT INTO `t_comment` VALUES ('1', '1', 'æœ‹å‹å®¶ç¾å¥³å¾ˆå¤šï¼', 'STU001', '2018-03-29 16:07:30');
+INSERT INTO `t_comment` VALUES ('2', '1', 'ä½ ç©çš„çœŸhappy', 'STU002', '2018-04-03 13:04:10');
+
+-- ----------------------------
+-- Table structure for `t_guanzhu`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_guanzhu`;
+CREATE TABLE `t_guanzhu` (
+  `guanzhuId` int(11) NOT NULL auto_increment COMMENT 'å…³æ³¨id',
+  `userObj1` varchar(30) NOT NULL COMMENT 'è¢«å…³æ³¨äºº',
+  `userObj2` varchar(30) NOT NULL COMMENT 'å…³æ³¨äºº',
+  `guanzhuTime` varchar(20) default NULL COMMENT 'å…³æ³¨æ—¶é—´',
+  PRIMARY KEY  (`guanzhuId`),
+  KEY `userObj1` (`userObj1`),
+  KEY `userObj2` (`userObj2`),
+  CONSTRAINT `t_guanzhu_ibfk_1` FOREIGN KEY (`userObj1`) REFERENCES `t_userinfo` (`user_name`),
+  CONSTRAINT `t_guanzhu_ibfk_2` FOREIGN KEY (`userObj2`) REFERENCES `t_userinfo` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_guanzhu
+-- ----------------------------
+INSERT INTO `t_guanzhu` VALUES ('2', 'STU001', 'STU002', '2018-04-03 14:35:59');
+
+-- ----------------------------
+-- Table structure for `t_leaveword`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_leaveword`;
+CREATE TABLE `t_leaveword` (
+  `leaveWordId` int(11) NOT NULL auto_increment COMMENT 'ç•™è¨€id',
+  `leaveTitle` varchar(80) NOT NULL COMMENT 'ç•™è¨€æ ‡é¢˜',
+  `leaveContent` varchar(2000) NOT NULL COMMENT 'ç•™è¨€å†…å®¹',
+  `userObj` varchar(30) NOT NULL COMMENT 'ç•™è¨€äºº',
+  `leaveTime` varchar(20) default NULL COMMENT 'ç•™è¨€æ—¶é—´',
+  `replyContent` varchar(1000) default NULL COMMENT 'ç®¡ç†å›å¤',
+  `replyTime` varchar(20) default NULL COMMENT 'å›å¤æ—¶é—´',
+  PRIMARY KEY  (`leaveWordId`),
+  KEY `userObj` (`userObj`),
+  CONSTRAINT `t_leaveword_ibfk_1` FOREIGN KEY (`userObj`) REFERENCES `t_userinfo` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_leaveword
+-- ----------------------------
+INSERT INTO `t_leaveword` VALUES ('1', 'æœ‰2018å±Šçš„æ ¡å‹å—', 'æˆ‘çš„2018å±Šè®¡ç®—æœºä¸“ä¸šçš„ï¼Œæœ‰ä¸€ä¸ªä¸“ä¸šçš„æ ¡å‹å—ï¼Ÿ', 'STU001', '2018-03-29 16:08:04', 'è¿™é‡Œå„ä¸ªä¸“ä¸šçš„æœ‹å‹éƒ½æœ‰å“ˆï¼', '2018-03-29 16:08:08');
+INSERT INTO `t_leaveword` VALUES ('2', 'è¿™ä¸ªæ ¡å‹éƒ½æ˜¯çœŸå®çš„å§', 'è¿™é‡Œè¿™ä¸ªå¹³å°éƒ½æ˜¯æˆ‘ä»¬å­¦æ ¡çš„æ ¡å‹å—ï¼Ÿ', 'STU001', '2018-04-03 11:14:44', 'æ˜¯çš„éƒ½æ˜¯å“ˆ', '2018-04-03 14:44:03');
+
+-- ----------------------------
+-- Table structure for `t_notice`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_notice`;
+CREATE TABLE `t_notice` (
+  `noticeId` int(11) NOT NULL auto_increment COMMENT 'å…¬å‘Šid',
+  `title` varchar(80) NOT NULL COMMENT 'æ ‡é¢˜',
+  `content` varchar(5000) NOT NULL COMMENT 'å…¬å‘Šå†…å®¹',
+  `publishDate` varchar(20) default NULL COMMENT 'å‘å¸ƒæ—¶é—´',
+  PRIMARY KEY  (`noticeId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_notice
+-- ----------------------------
+INSERT INTO `t_notice` VALUES ('1', 'æ ¡å‹å½•ç½‘ç«™æˆç«‹äº†', '<p>åŒå­¦ä»¬å¯ä»¥æ¥è¿™é‡Œæ‰¾åˆ°ä½ ä»¬çš„æ ¡å‹ä¸€èµ·ç©ï¼</p>', '2018-03-29 16:08:15');
+
+-- ----------------------------
+-- Table structure for `t_postinfo`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_postinfo`;
+CREATE TABLE `t_postinfo` (
+  `postInfoId` int(11) NOT NULL auto_increment COMMENT 'æ–‡ç« id',
+  `title` varchar(80) NOT NULL COMMENT 'æ–‡ç« æ ‡é¢˜',
+  `postPhoto` varchar(60) NOT NULL COMMENT 'æ–‡ç« å›¾ç‰‡',
+  `content` varchar(5000) NOT NULL COMMENT 'æ–‡ç« å†…å®¹',
+  `hitNum` int(11) NOT NULL COMMENT 'æµè§ˆé‡',
+  `userObj` varchar(30) NOT NULL COMMENT 'å‘å¸ƒäºº',
+  `addTime` varchar(20) default NULL COMMENT 'å‘å¸ƒæ—¶é—´',
+  PRIMARY KEY  (`postInfoId`),
+  KEY `userObj` (`userObj`),
+  CONSTRAINT `t_postinfo_ibfk_1` FOREIGN KEY (`userObj`) REFERENCES `t_userinfo` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_postinfo
+-- ----------------------------
+INSERT INTO `t_postinfo` VALUES ('1', 'æˆ‘çš„å¦¹å¦¹è¦ç›¸äº²ï¼', 'upload/b6b53b4d-5fcc-4274-a0df-c292115bacd7.jpg', '<p>è¿™æ˜¯æˆ‘å¦¹å¦¹ï¼Œæœ‰å“ªä¸ªå•èº«ç”·å£«è¿˜æ²¡ç»“å©šçš„ï¼Œå¯ä»¥æ¥è°ˆè°ˆï¼</p>', '38', 'STU001', '2018-03-29 16:06:36');
+INSERT INTO `t_postinfo` VALUES ('2', 'è°å‘¨æœ«ä¸€èµ·å»çœ‹æ¡ƒèŠ±', 'upload/14275501-4655-4c76-9e74-f54b7e61a81d.jpg', '<p>å¤ªå¿™äº†éƒ½é”™è¿‡äº†çœ‹æ¡ƒèŠ±çš„æœ€å¥½æ—¶èŠ‚ï¼Œç°åœ¨ä¼°è®¡è¿˜æœ‰å‡ æœµèŠ±å§ï¼Œè°è¦å’Œæˆ‘ä¸€èµ·å»ï¼Ÿ</p>', '4', 'STU001', '2018-04-03 12:15:40');
+
+-- ----------------------------
+-- Table structure for `t_reply`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_reply`;
+CREATE TABLE `t_reply` (
+  `replyId` int(11) NOT NULL auto_increment COMMENT 'å›å¤id',
+  `postInfoObj` int(11) NOT NULL COMMENT 'è¢«å›æ–‡ç« ',
+  `content` varchar(2000) NOT NULL COMMENT 'å›å¤å†…å®¹',
+  `userObj` varchar(30) NOT NULL COMMENT 'å›å¤äºº',
+  `replyTime` varchar(20) default NULL COMMENT 'å›å¤æ—¶é—´',
+  PRIMARY KEY  (`replyId`),
+  KEY `postInfoObj` (`postInfoObj`),
+  KEY `userObj` (`userObj`),
+  CONSTRAINT `t_reply_ibfk_1` FOREIGN KEY (`postInfoObj`) REFERENCES `t_postinfo` (`postInfoId`),
+  CONSTRAINT `t_reply_ibfk_2` FOREIGN KEY (`userObj`) REFERENCES `t_userinfo` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_reply
+-- ----------------------------
+INSERT INTO `t_reply` VALUES ('1', '1', 'æˆ‘å“¥å“¥å•èº«26å²ï¼Œä½ å¦¹å¦¹å¤šå¤§äº†ï¼Ÿ', 'STU002', '2018-03-29 16:06:45');
+INSERT INTO `t_reply` VALUES ('2', '1', 'å¯ä»¥å«ä½ å“¥å“¥å‡ºæ¥çœ‹çœ‹ï¼', 'STU001', '2018-04-03 11:42:51');
+
+-- ----------------------------
+-- Table structure for `t_shuoshuo`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_shuoshuo`;
+CREATE TABLE `t_shuoshuo` (
+  `shuoshuoId` int(11) NOT NULL auto_increment COMMENT 'è¯´è¯´id',
+  `shuoshuoContent` varchar(800) NOT NULL COMMENT 'è¯´è¯´å†…å®¹',
+  `photo1` varchar(60) NOT NULL COMMENT 'å›¾ç‰‡1',
+  `photo2` varchar(60) NOT NULL COMMENT 'å›¾ç‰‡2',
+  `photo3` varchar(60) NOT NULL COMMENT 'å›¾ç‰‡3',
+  `userObj` varchar(30) NOT NULL COMMENT 'å‘å¸ƒäºº',
+  `addTime` varchar(20) default NULL COMMENT 'å‘å¸ƒæ—¶é—´',
+  PRIMARY KEY  (`shuoshuoId`),
+  KEY `userObj` (`userObj`),
+  CONSTRAINT `t_shuoshuo_ibfk_1` FOREIGN KEY (`userObj`) REFERENCES `t_userinfo` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_shuoshuo
+-- ----------------------------
+INSERT INTO `t_shuoshuo` VALUES ('1', 'ä»Šå¤©çš„å¤©æ°”çœŸå¿ƒä¸é”™å•Šï¼Œå»æœ‹å‹å®¶åƒå¸­äº†ï¼', 'upload/519adff4-bdf7-4bc6-918a-ddca8f1733c3.jpg', 'upload/78c23c03-65dc-45b7-b69d-6b7b72041622.jpg', 'upload/fb8ad2df-5614-450a-88fc-b7becd5f0eff.jpg', 'STU001', '2018-03-29 16:07:09');
+
+-- ----------------------------
+-- Table structure for `t_shuoshuozan`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_shuoshuozan`;
+CREATE TABLE `t_shuoshuozan` (
+  `zanId` int(11) NOT NULL auto_increment COMMENT 'ç‚¹èµid',
+  `shuoshuoObj` int(11) NOT NULL COMMENT 'è¢«ç‚¹èµè¯´è¯´',
+  `userObj` varchar(30) NOT NULL COMMENT 'ç‚¹èµç”¨æˆ·',
+  `zanTime` varchar(20) default NULL COMMENT 'ç‚¹èµæ—¶é—´',
+  PRIMARY KEY  (`zanId`),
+  KEY `shuoshuoObj` (`shuoshuoObj`),
+  KEY `userObj` (`userObj`),
+  CONSTRAINT `t_shuoshuozan_ibfk_1` FOREIGN KEY (`shuoshuoObj`) REFERENCES `t_shuoshuo` (`shuoshuoId`),
+  CONSTRAINT `t_shuoshuozan_ibfk_2` FOREIGN KEY (`userObj`) REFERENCES `t_userinfo` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_shuoshuozan
+-- ----------------------------
+INSERT INTO `t_shuoshuozan` VALUES ('1', '1', 'STU001', '2018-04-03 13:04:18');
+
+-- ----------------------------
+-- Table structure for `t_userinfo`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_userinfo`;
+CREATE TABLE `t_userinfo` (
+  `user_name` varchar(30) NOT NULL COMMENT 'user_name',
+  `password` varchar(30) NOT NULL COMMENT 'ç™»å½•å¯†ç ',
+  `name` varchar(20) NOT NULL COMMENT 'å§“å',
+  `gender` varchar(4) NOT NULL COMMENT 'æ€§åˆ«',
+  `birthDate` varchar(20) default NULL COMMENT 'å‡ºç”Ÿæ—¥æœŸ',
+  `userPhoto` varchar(60) NOT NULL COMMENT 'ç”¨æˆ·ç…§ç‰‡',
+  `telephone` varchar(20) NOT NULL COMMENT 'è”ç³»ç”µè¯',
+  `email` varchar(50) NOT NULL COMMENT 'é‚®ç®±',
+  `address` varchar(80) default NULL COMMENT 'å®¶åº­åœ°å€',
+  `shzt` varchar(20) NOT NULL COMMENT 'å®¡æ ¸çŠ¶æ€',
+  `regTime` varchar(20) default NULL COMMENT 'æ³¨å†Œæ—¶é—´',
+  PRIMARY KEY  (`user_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_userinfo
+-- ----------------------------
+INSERT INTO `t_userinfo` VALUES ('STU001', '123', 'ææ–‡é™', 'å¥³', '2018-03-13', 'upload/71d1ca3b-f4ee-4c63-831b-f7ce396009ee.jpg', '13988939843', 'wenjing@163.com', 'å››å·æˆéƒ½æµ·æ´‹å’¯13å·', 'å·²å®¡æ ¸', '2018-03-29 16:06:24');
+INSERT INTO `t_userinfo` VALUES ('STU002', '123', 'ç‹å¸ŒèŒ', 'å¥³', '2018-04-04', 'upload/aebd1d17-30f0-471e-8e6b-a369e759c586.jpg', '13589834234', 'ximeng@163.com', 'å››å·å—å……æ»¨æ±Ÿè·¯', 'å·²å®¡æ ¸', '2018-04-03 13:22:13');
+
+-- ----------------------------
+-- Table structure for `t_zaninfo`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_zaninfo`;
+CREATE TABLE `t_zaninfo` (
+  `zanId` int(11) NOT NULL auto_increment COMMENT 'ç‚¹èµid',
+  `postObj` int(11) NOT NULL COMMENT 'è¢«ç‚¹èµæ–‡ç« ',
+  `userObj` varchar(30) NOT NULL COMMENT 'ç‚¹èµäºº',
+  `zanTime` varchar(20) default NULL COMMENT 'ç‚¹èµæ—¶é—´',
+  PRIMARY KEY  (`zanId`),
+  KEY `postObj` (`postObj`),
+  KEY `userObj` (`userObj`),
+  CONSTRAINT `t_zaninfo_ibfk_1` FOREIGN KEY (`postObj`) REFERENCES `t_postinfo` (`postInfoId`),
+  CONSTRAINT `t_zaninfo_ibfk_2` FOREIGN KEY (`userObj`) REFERENCES `t_userinfo` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_zaninfo
+-- ----------------------------
+INSERT INTO `t_zaninfo` VALUES ('2', '1', 'STU001', '2018-04-03 12:14:30');
